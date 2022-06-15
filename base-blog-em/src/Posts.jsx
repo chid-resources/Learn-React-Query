@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useQuery } from "react-query";
 
 import { PostDetail } from "./PostDetail";
 const maxPostPage = 10;
@@ -7,6 +8,7 @@ async function fetchPosts() {
   const response = await fetch(
     "https://jsonplaceholder.typicode.com/posts?_limit=10&_page=0"
   );
+  console.log("response :>> ", response);
   return response.json();
 }
 
@@ -15,7 +17,9 @@ export function Posts() {
   const [selectedPost, setSelectedPost] = useState(null);
 
   // replace with useQuery
-  const data = [];
+  const { data, isError, isLoading } = useQuery("posts", fetchPosts);
+  if (isLoading) return <h1>Loading...</h1>;
+  if (isError) return <h1>Oops, something went wrong...</h1>;
 
   return (
     <>

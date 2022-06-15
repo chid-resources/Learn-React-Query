@@ -1,1 +1,4 @@
 *tar.gz
+base-blog-em/node_modules
+
+yarn.lock
